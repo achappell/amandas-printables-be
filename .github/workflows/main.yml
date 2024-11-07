@@ -52,8 +52,8 @@ jobs:
           echo DB_NAME=${{ secrets.DB_NAME }} >> .env
           echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
           echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> .env
-          echo DB_PORT=${{ 5432 }} >> .env
-          echo DB_SCHEMA=${{ public }} >> env
+          echo DB_PORT=${{ vars.DB_PORT }} >> .env
+          echo DB_SCHEMA=${{ vars.DB_SCHEMA }} >> env
     - name: Build App
       run: npm install && env $(cat .env | grep -v \"#\" | xargs) pm2 startOrReload start.json
 
