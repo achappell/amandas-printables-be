@@ -1,6 +1,6 @@
 {
     "apps": [{
         "name" : "amandas-printables",
-        "script" : "npm install && npm run dev"
+        "script" : "npm run build && npm run dev"
     }]
 }
