@@ -16,6 +16,13 @@ env:
   PORT: ${{ vars.PORT }}
   COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
   HOST_NAME: ${{ vars.HOST_NAME }}
+  DB_HOST: ${{ vars.DB_HOST }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+  DB_PORT: ${{ vars.DB_PORT }}
+  DB_SCHEMA: ${{ vars.DB_SCHEMA }}
+
 
 jobs:
   build-backend:
@@ -41,6 +48,12 @@ jobs:
           echo PORT=${{ vars.PORT }} >> .env
           echo COOKIE_SECRET=${{ secrets.COOKIE_SECRET }} >> .env
           echo HOST_NAME=${{ vars.HOST_NAME }} >> .env
+          echo DB_HOST=${{ vars.DB_HOST }} >> .env
+          echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
+          echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> .env
+          echo DB_PORT=${{ 5432 }} >> .env
+          echo DB_SCHEMA=${{ public }} >> env
     - name: Build App
       run: npm install && env $(cat .env | grep -v \"#\" | xargs) pm2 startOrReload start.json
 

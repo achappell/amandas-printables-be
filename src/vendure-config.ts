@@ -12,7 +12,6 @@ import path from 'path';
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
-const hostName = +process.env.HOST_NAME || 'http://localhost';
 
 export const config: VendureConfig = {
     apiOptions: {
@@ -44,13 +43,18 @@ export const config: VendureConfig = {
         },
     },
     dbConnectionOptions: {
-        type: 'better-sqlite3',
+        type: 'postgres',
         // See the README.md "Migrations" section for an explanation of
         // the `synchronize` and `migrations` options.
         synchronize: false,
         migrations: [path.join(__dirname, './migrations/*.+(js|ts)')],
         logging: false,
-        database: path.join(__dirname, '../vendure.sqlite'),
+        database: process.env.DB_NAME,
+        schema: process.env.DB_SCHEMA,
+        host: process.env.DB_HOST,
+        port: +process.env.DB_PORT,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
     },
     paymentOptions: {
         paymentMethodHandlers: [dummyPaymentHandler],
